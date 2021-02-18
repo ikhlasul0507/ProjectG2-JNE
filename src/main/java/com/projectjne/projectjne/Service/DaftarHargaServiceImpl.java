@@ -1,6 +1,7 @@
 package com.projectjne.projectjne.Service;
 
 import com.projectjne.projectjne.Model.DaftarHarga;
+import com.projectjne.projectjne.Model.Kurir;
 import com.projectjne.projectjne.Repository.DaftarHargaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -29,15 +30,9 @@ public class DaftarHargaServiceImpl implements DaftarHargaService {
         }
         return dh;
     }
-    public DaftarHarga findByName(String namaPaket) {
-        DaftarHarga dh;
-        try{
-            dh = (DaftarHarga) daftarHargaRepository.findByName(namaPaket);
-        }catch (EmptyResultDataAccessException e){
-            System.out.println(e);
-            dh = null;
-        }
-        return dh;
+    @Override
+    public DaftarHarga findByName(String name) {
+        return (DaftarHarga) daftarHargaRepository.findByName(name).get(0);
     }
 
     public void saveDaftarHarga(DaftarHarga daftarHarga) {
