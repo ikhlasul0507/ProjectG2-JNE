@@ -32,4 +32,5 @@ public class DaftarHarga {
     public void setHargaPaket(String hargaPaket) {
         this.hargaPaket = hargaPaket;
     }
+
 }
