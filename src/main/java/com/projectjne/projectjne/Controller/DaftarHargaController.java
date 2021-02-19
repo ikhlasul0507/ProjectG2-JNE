@@ -58,7 +58,13 @@ public class DaftarHargaController {
     @RequestMapping(value = "/harga/", method = RequestMethod.POST)
     public ResponseEntity<?> createDaftarHarga(@RequestBody DaftarHarga daftarHarga) {
         logger.info("Creating Daftar Harga  : {} ", daftarHarga);
-        if (daftarHargaService.isDaftarHargaExist(daftarHarga)) {
+        if(daftarHarga.getNamaPaket() ==""){
+            return new ResponseEntity<>(new CustomErrorType("nama paket not found."),
+                    HttpStatus.NOT_FOUND);
+        }else if(daftarHarga.getHargaPaket() ==""){
+            return new ResponseEntity<>(new CustomErrorType("harga paket not found."),
+                    HttpStatus.NOT_FOUND);
+        }else if (daftarHargaService.isDaftarHargaExist(daftarHarga)) {
             logger.error("Unable to create, daftar harga already exist", daftarHarga.getNamaPaket());
             return new ResponseEntity<>(new CustomErrorType("Unable to create, daftar harga already" + daftarHarga.getNamaPaket()), HttpStatus.CONFLICT);
         }else {
@@ -92,13 +98,19 @@ public class DaftarHargaController {
             logger.error("Unable to update. daftar harga with id {} not found.", idDaftarHarga);
             return new ResponseEntity<>(new CustomErrorType("Unable to upate. daftar harga with id " + idDaftarHarga + " not found."),
                     HttpStatus.NOT_FOUND);
+        }else if(daftarHarga.getNamaPaket() ==""){
+            return new ResponseEntity<>(new CustomErrorType("nama paket not found."),
+                    HttpStatus.NOT_FOUND);
+        }else if(daftarHarga.getHargaPaket() ==""){
+            return new ResponseEntity<>(new CustomErrorType("harga paket not found."),
+                    HttpStatus.NOT_FOUND);
+        }else {
+            currentDaftarHarga.setNamaPaket(daftarHarga.getNamaPaket());
+            currentDaftarHarga.setHargaPaket(daftarHarga.getHargaPaket());
+
+            daftarHargaService.updateDaftarHarga(currentDaftarHarga);
+            return new ResponseEntity<>(currentDaftarHarga, HttpStatus.OK);
         }
-
-        currentDaftarHarga.setNamaPaket(daftarHarga.getNamaPaket());
-        currentDaftarHarga.setHargaPaket(daftarHarga.getHargaPaket());
-
-        daftarHargaService.updateDaftarHarga(currentDaftarHarga);
-        return new ResponseEntity<>(currentDaftarHarga, HttpStatus.OK);
     }
     //get daftar harga paging
     @GetMapping("/harga/paging/")

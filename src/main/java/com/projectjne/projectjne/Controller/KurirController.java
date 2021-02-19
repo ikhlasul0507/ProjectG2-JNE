@@ -1,8 +1,6 @@
 package com.projectjne.projectjne.Controller;
 
-import com.projectjne.projectjne.Model.DaftarHarga;
 import com.projectjne.projectjne.Model.Kurir;
-import com.projectjne.projectjne.Service.DaftarHargaService;
 import com.projectjne.projectjne.Service.KurirService;
 import com.projectjne.projectjne.Util.CustomErrorType;
 import org.slf4j.Logger;
@@ -12,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -58,12 +57,28 @@ public class KurirController {
 
     //insert kuriur
     @RequestMapping(value = "/kurir/", method = RequestMethod.POST)
-    public ResponseEntity<?> createKurir(@RequestBody Kurir kurir) {
+    public ResponseEntity<?> createKurir(@Valid @RequestBody Kurir kurir) {
+//        try{
         logger.info("Creating Kurir  : {} ", kurir);
-        if (kurirService.isKurirExist(kurir)) {
+        if(kurir.getNamaKurir()== ""){
+            return new ResponseEntity<>(new CustomErrorType("nama Kurir not found."),
+                    HttpStatus.NOT_FOUND);
+        }else if(kurir.getIdKendaraan() == ""){
+            return new ResponseEntity<>(new CustomErrorType("id Kendaraan not found."),
+                    HttpStatus.NOT_FOUND);
+        }else if(kurir.getNoKtp() == ""){
+            return new ResponseEntity<>(new CustomErrorType("no ktp not found."),
+                    HttpStatus.NOT_FOUND);
+        }else if(kurir.getHandphone() == ""){
+            return new ResponseEntity<>(new CustomErrorType("handphone not found."),
+                    HttpStatus.NOT_FOUND);
+        }else if(kurir.getJenisKelamin() == ""){
+            return new ResponseEntity<>(new CustomErrorType("jenis kelamin not found."),
+                    HttpStatus.NOT_FOUND);
+        }else if (kurirService.isKurirExist(kurir)) {
             logger.error("Unable to create, kurir already exist", kurir.getNamaKurir());
             return new ResponseEntity<>(new CustomErrorType("Unable to create, kurir already" + kurir.getNamaKurir()), HttpStatus.CONFLICT);
-        }else {
+        } else {
             kurirService.saveKurir(kurir);
             return new ResponseEntity<>("Data Berhasil Di Simpan", HttpStatus.OK);
         }
@@ -89,21 +104,35 @@ public class KurirController {
         logger.info("Updating kurir with id {}", idKurir);
 
         Kurir currentKurir = kurirService.findById(idKurir);
-
         if (currentKurir == null) {
             logger.error("Unable to update. kurir with id {} not found.", idKurir);
             return new ResponseEntity<>(new CustomErrorType("Unable to upate. kurir with id " + idKurir + " not found."),
                     HttpStatus.NOT_FOUND);
+        }else if(kurir.getNamaKurir()== ""){
+            return new ResponseEntity<>(new CustomErrorType("nama Kurir not found."),
+                    HttpStatus.NOT_FOUND);
+        }else if(kurir.getIdKendaraan() == ""){
+            return new ResponseEntity<>(new CustomErrorType("id Kendaraan not found."),
+                    HttpStatus.NOT_FOUND);
+        }else if(kurir.getNoKtp() == ""){
+            return new ResponseEntity<>(new CustomErrorType("no ktp not found."),
+                    HttpStatus.NOT_FOUND);
+        }else if(kurir.getHandphone() == ""){
+            return new ResponseEntity<>(new CustomErrorType("handphone not found."),
+                    HttpStatus.NOT_FOUND);
+        }else if(kurir.getJenisKelamin() == ""){
+            return new ResponseEntity<>(new CustomErrorType("jenis kelamin not found."),
+                    HttpStatus.NOT_FOUND);
+        }else {
+            currentKurir.setNamaKurir(kurir.getNamaKurir());
+            currentKurir.setIdKendaraan(kurir.getIdKendaraan());
+            currentKurir.setNoKtp(kurir.getNoKtp());
+            currentKurir.setHandphone(kurir.getHandphone());
+            currentKurir.setJenisKelamin(kurir.getJenisKelamin());
+
+            kurirService.updateKurir(currentKurir);
+            return new ResponseEntity<>(currentKurir, HttpStatus.OK);
         }
-
-        currentKurir.setNamaKurir(kurir.getNamaKurir());
-        currentKurir.setIdKendaraan(kurir.getIdKendaraan());
-        currentKurir.setNoKtp(kurir.getNoKtp());
-        currentKurir.setHandphone(kurir.getHandphone());
-        currentKurir.setJenisKelamin(kurir.getJenisKelamin());
-
-        kurirService.updateKurir(currentKurir);
-        return new ResponseEntity<>(currentKurir, HttpStatus.OK);
     }
     //get daftar harga paging
     @GetMapping("/kurir/paging/")

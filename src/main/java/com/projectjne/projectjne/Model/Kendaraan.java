@@ -4,10 +4,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class Kendaraan {
-    @NotNull
-    @NotBlank(message = "Id Kendaraan may not be null")
+    @NotNull(message = "Id Kendaraan may not be null")
     private String idKendaraan;
-    @NotNull
     @NotBlank(message = "Plat Kendaraan may not be null")
     private String platKendaraan;
 

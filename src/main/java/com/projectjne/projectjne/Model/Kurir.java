@@ -6,20 +6,18 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 public class Kurir {
-    @NotNull
     private String idKurir;
-    @NotNull
+    @NotNull(message ="id Kendaraan not Null")
     private String idKendaraan;
-    @NotBlank(message = "Nama Kurir may not be null")
     @Size(min = 0, max = 50)
     private String namaKurir;
-    @NotBlank(message = "Jenis Kelamin may not be null")
+    @NotNull(message = "Jenis Kelamin may not be null")
     @Size(min = 0, max = 1)
     private String jenisKelamin;
-    @NotBlank(message = "No Ktp may not be null")
+    @NotNull(message = "No Ktp may not be null")
     @Size(min = 0, max = 16)
     private String noKtp;
-    @NotBlank(message = "Handphone may not be null")
+    @NotNull(message = "Handphone may not be null")
     @Size(min = 0, max = 14)
     private String handphone;
     List<Kendaraan> kendaraanList;
