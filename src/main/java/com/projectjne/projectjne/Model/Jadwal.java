@@ -1,8 +1,16 @@
 package com.projectjne.projectjne.Model;
 
+import javax.validation.constraints.NotNull;
+import java.util.List;
+
 public class Jadwal {
+    @NotNull
     private String idJadwal,idKurir,idKendaraan,idPaket;
+    @NotNull
     private int qty,kg,harga,total;
+    Kurir kurirList;
+    Kendaraan kendaraanList;
+    DaftarHarga daftarHargaList;
 
     public Jadwal(String idJadwal, String idKurir, String idKendaraan, String idPaket, int qty, int kg, int harga, int total) {
         this.idJadwal = idJadwal;
@@ -13,6 +21,30 @@ public class Jadwal {
         this.kg = kg;
         this.harga = harga;
         this.total = total;
+    }
+
+    public Kurir getKurirList() {
+        return kurirList;
+    }
+
+    public void setKurirList(Kurir kurirList) {
+        this.kurirList = kurirList;
+    }
+
+    public Kendaraan getKendaraanList() {
+        return kendaraanList;
+    }
+
+    public void setKendaraanList(Kendaraan kendaraanList) {
+        this.kendaraanList = kendaraanList;
+    }
+
+    public DaftarHarga getDaftarHargaList() {
+        return daftarHargaList;
+    }
+
+    public void setDaftarHargaList(DaftarHarga daftarHargaList) {
+        this.daftarHargaList = daftarHargaList;
     }
 
     public String getIdJadwal() {

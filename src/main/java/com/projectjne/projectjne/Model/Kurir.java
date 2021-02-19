@@ -20,7 +20,7 @@ public class Kurir {
     @NotNull(message = "Handphone may not be null")
     @Size(min = 0, max = 14)
     private String handphone;
-    List<Kendaraan> kendaraanList;
+    Kendaraan kendaraanList;
 
     public Kurir(String idKurir, String idKendaraan, String noKtp, String namaKurir, String handphone, String jeniKelamin) {
         this.idKurir = idKurir;
@@ -31,11 +31,11 @@ public class Kurir {
         this.jenisKelamin = jeniKelamin;
     }
 
-    public List<Kendaraan> getKendaraanList() {
+    public Kendaraan getKendaraanList() {
         return kendaraanList;
     }
 
-    public void setKendaraanList(List<Kendaraan> kendaraanList) {
+    public void setKendaraanList(Kendaraan kendaraanList) {
         this.kendaraanList = kendaraanList;
     }
 

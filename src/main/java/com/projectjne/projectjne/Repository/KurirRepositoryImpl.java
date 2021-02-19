@@ -31,13 +31,13 @@ public class KurirRepositoryImpl implements KurirRepository{
         );
         for (Kurir ch : kurirs) {
             ch.setKendaraanList(jdbcTemplate.query("select * from tbl_kendaraan c, tbl_kurir p where " +
-                            "c.idKendaraan =? LIMIT 1",
+                            "c.idKendaraan =?",
                     preparedStatement -> preparedStatement.setString(1,ch.getIdKendaraan()),
                     (rs, rowNum) ->
                             new Kendaraan(
                                     rs.getString("idKendaraan"),
                                     rs.getString("platKendaraan")
-                            )));
+                            )).get(0));
         }
         return kurirs;
 
@@ -73,13 +73,13 @@ public class KurirRepositoryImpl implements KurirRepository{
                         ));
 
         kurir.setKendaraanList(jdbcTemplate.query("select * from tbl_kendaraan c, tbl_kurir p where " +
-                        "c.idKendaraan =? LIMIT 1",
+                        "c.idKendaraan =?",
                 preparedStatement -> preparedStatement.setString(1,kurir.getIdKendaraan()),
                 (rs, rowNum) ->
                         new Kendaraan(
                                 rs.getString("idKendaraan"),
                                 rs.getString("platKendaraan")
-                        )));
+                        )).get(0));
         return kurir;
     }
     public List<Kurir> findByName(String namaKurir){
@@ -98,13 +98,13 @@ public class KurirRepositoryImpl implements KurirRepository{
 
         for (Kurir ch : kurir) {
             ch.setKendaraanList(jdbcTemplate.query("select * from tbl_kendaraan c, tbl_kurir p where " +
-                            "c.idKendaraan =? LIMIT 1",
+                            "c.idKendaraan =?",
                     preparedStatement -> preparedStatement.setString(1,ch.getIdKendaraan()),
                     (rs, rowNum) ->
                             new Kendaraan(
                                     rs.getString("idKendaraan"),
                                     rs.getString("platKendaraan")
-                            )));
+                            )).get(0));
         }
         return kurir;
     }
@@ -141,13 +141,13 @@ public class KurirRepositoryImpl implements KurirRepository{
         );
         for (Kurir ch : kurirs) {
             ch.setKendaraanList(jdbcTemplate.query("select * from tbl_kendaraan c, tbl_kurir p where " +
-                            "c.idKendaraan =? LIMIT 1",
+                            "c.idKendaraan =?",
                     preparedStatement -> preparedStatement.setString(1,ch.getIdKendaraan()),
                     (rs, rowNum) ->
                             new Kendaraan(
                                     rs.getString("idKendaraan"),
                                     rs.getString("platKendaraan")
-                            )));
+                            )).get(0));
         }
         return kurirs;
     }

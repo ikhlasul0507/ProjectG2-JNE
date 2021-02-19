@@ -60,6 +60,4 @@ public class DaftarHargaServiceImpl implements DaftarHargaService {
         return daftarHargaRepository.findWithPaging(page, limit);
     }
 
-
-
 }
