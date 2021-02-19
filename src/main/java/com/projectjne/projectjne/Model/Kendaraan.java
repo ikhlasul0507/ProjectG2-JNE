@@ -1,7 +1,15 @@
 package com.projectjne.projectjne.Model;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class Kendaraan {
-    private String idKendaraan,platKendaraan;
+    @NotNull
+    @NotBlank(message = "Id Kendaraan may not be null")
+    private String idKendaraan;
+    @NotNull
+    @NotBlank(message = "Plat Kendaraan may not be null")
+    private String platKendaraan;
 
     public Kendaraan(String idKendaraan, String platKendaraan) {
         this.idKendaraan = idKendaraan;

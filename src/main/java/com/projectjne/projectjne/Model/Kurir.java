@@ -3,6 +3,7 @@ package com.projectjne.projectjne.Model;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 public class Kurir {
     @NotNull
@@ -21,7 +22,7 @@ public class Kurir {
     @NotBlank(message = "Handphone may not be null")
     @Size(min = 0, max = 14)
     private String handphone;
-
+    List<Kendaraan> kendaraanList;
 
     public Kurir(String idKurir, String idKendaraan, String noKtp, String namaKurir, String handphone, String jeniKelamin) {
         this.idKurir = idKurir;
@@ -30,6 +31,14 @@ public class Kurir {
         this.noKtp = noKtp;
         this.handphone = handphone;
         this.jenisKelamin = jeniKelamin;
+    }
+
+    public List<Kendaraan> getKendaraanList() {
+        return kendaraanList;
+    }
+
+    public void setKendaraanList(List<Kendaraan> kendaraanList) {
+        this.kendaraanList = kendaraanList;
     }
 
     public String getIdKurir() {

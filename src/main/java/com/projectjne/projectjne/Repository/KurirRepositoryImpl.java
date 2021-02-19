@@ -1,10 +1,12 @@
 package com.projectjne.projectjne.Repository;
-
-import com.projectjne.projectjne.Model.DaftarHarga;
+import com.projectjne.projectjne.Model.Kendaraan;
 import com.projectjne.projectjne.Model.Kurir;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import java.util.List;
 import java.util.UUID;
@@ -15,7 +17,8 @@ public class KurirRepositoryImpl implements KurirRepository{
     private JdbcTemplate jdbcTemplate;
 
     public List<Kurir> findAll() {
-        return jdbcTemplate.query("select * from tbl_kurir",
+        List<Kurir> kurirs;
+        kurirs = jdbcTemplate.query("Select * FROM tbl_kurir",
                 (rs, rowNum)->
                         new Kurir(
                                 rs.getString("idKurir"),
@@ -26,14 +29,29 @@ public class KurirRepositoryImpl implements KurirRepository{
                                 rs.getString("jenisKelamin")
                         )
         );
+        for (Kurir ch : kurirs) {
+            ch.setKendaraanList(jdbcTemplate.query("select * from tbl_kendaraan c, tbl_kurir p where " +
+                            "c.idKendaraan =? LIMIT 1",
+                    preparedStatement -> preparedStatement.setString(1,ch.getIdKendaraan()),
+                    (rs, rowNum) ->
+                            new Kendaraan(
+                                    rs.getString("idKendaraan"),
+                                    rs.getString("platKendaraan")
+                            )));
+        }
+        return kurirs;
+
     }
 
     // Add new customer
     public void saveKurir(Kurir kurir) {
+        Date date = new Date();
+        SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy-hh:mm:ss");
+        String tgl= f.format(date);
         UUID uuid = UUID.randomUUID();
         String randomUUIDString = uuid.toString();
         jdbcTemplate.update("INSERT INTO tbl_kurir (idKurir,idKendaraan,noKtp,namaKurir,handphone, jenisKelamin) VALUES (?,?,?,?,?,?)",
-                randomUUIDString,kurir.getIdKendaraan(),kurir.getNoKtp(),kurir.getNamaKurir(),kurir.getHandphone(),kurir.getJenisKelamin());
+                tgl+"-"+randomUUIDString,kurir.getIdKendaraan(),kurir.getNoKtp(),kurir.getNamaKurir(),kurir.getHandphone(),kurir.getJenisKelamin());
     }
     // update new customer
     public void updateKurir(Kurir kurir) {
@@ -42,9 +60,9 @@ public class KurirRepositoryImpl implements KurirRepository{
     }
 
     public Kurir findById(String idKurir){
-        String sql = "select * from tbl_kurir WHERE idKurir='"+idKurir+"'";
-        return jdbcTemplate.queryForObject(sql,
-                (rs, rowNum)->
+        Kurir kurir;
+        kurir =  jdbcTemplate.queryForObject("SELECT * FROM tbl_kurir WHERE idKurir=?",new Object[]{idKurir},
+                (rs,rowNum)->
                         new Kurir(
                                 rs.getString("idKurir"),
                                 rs.getString("idKendaraan"),
@@ -52,13 +70,23 @@ public class KurirRepositoryImpl implements KurirRepository{
                                 rs.getString("namaKurir"),
                                 rs.getString("handphone"),
                                 rs.getString("jenisKelamin")
-                        )
-        );
+                        ));
+
+        kurir.setKendaraanList(jdbcTemplate.query("select * from tbl_kendaraan c, tbl_kurir p where " +
+                        "c.idKendaraan =? LIMIT 1",
+                preparedStatement -> preparedStatement.setString(1,kurir.getIdKendaraan()),
+                (rs, rowNum) ->
+                        new Kendaraan(
+                                rs.getString("idKendaraan"),
+                                rs.getString("platKendaraan")
+                        )));
+        return kurir;
     }
     public List<Kurir> findByName(String namaKurir){
-        return jdbcTemplate.query("Select * FROM tbl_kurir where namaKurir like ?",
+        List<Kurir> kurir;
+        kurir =  jdbcTemplate.query("Select * FROM tbl_kurir where namaKurir like ?",
                 new Object[]{"%"+namaKurir+"%"},
-                (rs, rowNum)->
+                (rs,rowNum)->
                         new Kurir(
                                 rs.getString("idKurir"),
                                 rs.getString("idKendaraan"),
@@ -66,8 +94,19 @@ public class KurirRepositoryImpl implements KurirRepository{
                                 rs.getString("namaKurir"),
                                 rs.getString("handphone"),
                                 rs.getString("jenisKelamin")
-                        )
-        );
+                        ));
+
+        for (Kurir ch : kurir) {
+            ch.setKendaraanList(jdbcTemplate.query("select * from tbl_kendaraan c, tbl_kurir p where " +
+                            "c.idKendaraan =? LIMIT 1",
+                    preparedStatement -> preparedStatement.setString(1,ch.getIdKendaraan()),
+                    (rs, rowNum) ->
+                            new Kendaraan(
+                                    rs.getString("idKendaraan"),
+                                    rs.getString("platKendaraan")
+                            )));
+        }
+        return kurir;
     }
 
     public void deleteKurirById(String idKurir){
@@ -87,19 +126,30 @@ public class KurirRepositoryImpl implements KurirRepository{
 
         System.out.println("start :"+start);
         System.out.println("limit :"+limit);
-        List<Kurir> kurirList =
-                jdbcTemplate.query("SELECT * FROM tbl_kurir LIMIT " + start + "," + limit + ";",
-                        (rs, rowNum) ->
-                                new Kurir(
-                                        rs.getString("idKurir"),
-                                        rs.getString("idKendaraan"),
-                                        rs.getString("noKtp"),
-                                        rs.getString("namaKurir"),
-                                        rs.getString("handphone"),
-                                        rs.getString("jenisKelamin")
-                                )
-                );
-        return kurirList;
+
+        List<Kurir> kurirs;
+        kurirs = jdbcTemplate.query("Select * FROM tbl_kurir LIMIT " + start + "," + limit + ";",
+                (rs, rowNum)->
+                        new Kurir(
+                                rs.getString("idKurir"),
+                                rs.getString("idKendaraan"),
+                                rs.getString("noKtp"),
+                                rs.getString("namaKurir"),
+                                rs.getString("handphone"),
+                                rs.getString("jenisKelamin")
+                        )
+        );
+        for (Kurir ch : kurirs) {
+            ch.setKendaraanList(jdbcTemplate.query("select * from tbl_kendaraan c, tbl_kurir p where " +
+                            "c.idKendaraan =? LIMIT 1",
+                    preparedStatement -> preparedStatement.setString(1,ch.getIdKendaraan()),
+                    (rs, rowNum) ->
+                            new Kendaraan(
+                                    rs.getString("idKendaraan"),
+                                    rs.getString("platKendaraan")
+                            )));
+        }
+        return kurirs;
     }
 }
 

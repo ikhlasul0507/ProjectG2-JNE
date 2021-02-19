@@ -56,7 +56,7 @@ public class KurirController {
         return new ResponseEntity<>(kurir, HttpStatus.OK);
     }
 
-    //insert daftar harga
+    //insert kuriur
     @RequestMapping(value = "/kurir/", method = RequestMethod.POST)
     public ResponseEntity<?> createKurir(@RequestBody Kurir kurir) {
         logger.info("Creating Kurir  : {} ", kurir);
