@@ -11,7 +11,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("jne")
 public class UserController {
@@ -57,22 +60,31 @@ public class UserController {
     public ResponseEntity<?> createUser(@RequestBody User user) {
         logger.info("Creating User  : {} ", user);
         System.out.println("name :"+user.getUsername());
-        if(user.getUsername() == ""){
-            return new ResponseEntity<>(new CustomErrorType("user name not null"),
-                    HttpStatus.NOT_FOUND);
-        }else if(user.getEmail() == ""){
-            return new ResponseEntity<>(new CustomErrorType("user email not null"),
-                    HttpStatus.NOT_FOUND);
-        }else if(user.getPassword() == ""){
-            return new ResponseEntity<>(new CustomErrorType("user password not null"),
-                    HttpStatus.NOT_FOUND);
-        }else if (userService.isUserExist(user)) {
-            logger.error("Unable to create, user already exist", user.getUsername());
-            return new ResponseEntity<>(new CustomErrorType("Unable to create, user already" + user.getUsername()), HttpStatus.CONFLICT);
-        }else{
-            userService.saveUser(user);
-            return new ResponseEntity<>("Data Berhasil Di Simpan", HttpStatus.OK);
-        }
+
+//        Pattern p = Pattern.compile("\\b[A-Z0-9._%-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b");
+//        Matcher m = p.matcher(user.getUsername());
+//
+//        if (m.find()) {
+            if (user.getUsername() == "") {
+                return new ResponseEntity<>(new CustomErrorType("user name not null"),
+                        HttpStatus.NOT_FOUND);
+            } else if (user.getEmail() == "") {
+                return new ResponseEntity<>(new CustomErrorType("user email not null"),
+                        HttpStatus.NOT_FOUND);
+            } else if (user.getPassword() == "") {
+                return new ResponseEntity<>(new CustomErrorType("user password not null"),
+                        HttpStatus.NOT_FOUND);
+            } else if (userService.isUserExist(user)) {
+                logger.error("Unable to create, user already exist", user.getUsername());
+                return new ResponseEntity<>(new CustomErrorType("Unable to create, user already" + user.getUsername()), HttpStatus.CONFLICT);
+            } else {
+                userService.saveUser(user);
+                return new ResponseEntity<>("Data Berhasil Di Simpan", HttpStatus.OK);
+            }
+//        }else{
+//            return new ResponseEntity<>(new CustomErrorType("email not format "),
+//                    HttpStatus.NOT_FOUND);
+//        }
     }
     //delete user by id
     @RequestMapping(value = "/user/{idUser}", method = RequestMethod.DELETE)

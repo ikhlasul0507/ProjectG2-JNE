@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("jne")
 public class DaftarHargaController {
@@ -107,6 +108,7 @@ public class DaftarHargaController {
         }else {
             currentDaftarHarga.setNamaPaket(daftarHarga.getNamaPaket());
             currentDaftarHarga.setHargaPaket(daftarHarga.getHargaPaket());
+            currentDaftarHarga.setStatus(daftarHarga.getStatus());
 
             daftarHargaService.updateDaftarHarga(currentDaftarHarga);
             return new ResponseEntity<>(currentDaftarHarga, HttpStatus.OK);

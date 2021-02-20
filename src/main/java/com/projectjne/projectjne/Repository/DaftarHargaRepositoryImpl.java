@@ -19,7 +19,8 @@ public class DaftarHargaRepositoryImpl implements DaftarHargaRepository {
                         new DaftarHarga(
                                 rs.getString("idDaftarHarga"),
                                 rs.getString("namaPaket"),
-                                rs.getString("hargaPaket")
+                                rs.getString("hargaPaket"),
+                                rs.getInt("status")
                         )
         );
     }
@@ -28,13 +29,13 @@ public class DaftarHargaRepositoryImpl implements DaftarHargaRepository {
     public void saveDaftarHarga(DaftarHarga daftarHarga) {
         UUID uuid = UUID.randomUUID();
         String randomUUIDString = uuid.toString();
-        jdbcTemplate.update("INSERT INTO tbl_daftar_harga (idDaftarHarga,namaPaket, hargaPaket) VALUES (?,?,?)",
-                randomUUIDString,daftarHarga.getNamaPaket(),daftarHarga.getHargaPaket());
+        jdbcTemplate.update("INSERT INTO tbl_daftar_harga (idDaftarHarga,namaPaket, hargaPaket, status) VALUES (?,?,?,?)",
+                randomUUIDString,daftarHarga.getNamaPaket(),daftarHarga.getHargaPaket(),daftarHarga.getStatus() );
     }
     // update new customer
     public void updateDaftarHarga(DaftarHarga daftarHarga) {
-        jdbcTemplate.update("UPDATE tbl_daftar_harga SET namaPaket= ?, hargaPaket=? Where idDaftarHarga=?",
-                daftarHarga.getNamaPaket(), daftarHarga.getHargaPaket(), daftarHarga.getIdDaftarHarga());
+        jdbcTemplate.update("UPDATE tbl_daftar_harga SET namaPaket= ?, hargaPaket=?, status=? Where idDaftarHarga=?",
+                daftarHarga.getNamaPaket(), daftarHarga.getHargaPaket(),daftarHarga.getStatus(), daftarHarga.getIdDaftarHarga());
     }
 
     public DaftarHarga findById(String idDaftarHarga){
@@ -44,7 +45,9 @@ public class DaftarHargaRepositoryImpl implements DaftarHargaRepository {
                         new DaftarHarga(
                                 rs.getString("idDaftarHarga"),
                                 rs.getString("namaPaket"),
-                                rs.getString("hargaPaket")
+                                rs.getString("hargaPaket"),
+                                rs.getInt("status")
+
                         )
         );
     }
@@ -55,7 +58,8 @@ public class DaftarHargaRepositoryImpl implements DaftarHargaRepository {
                         new DaftarHarga(
                                 rs.getString("idDaftarHarga"),
                                 rs.getString("namaPaket"),
-                                rs.getString("hargaPaket")
+                                rs.getString("hargaPaket"),
+                                rs.getInt("status")
                         )
         );
     }
@@ -83,7 +87,9 @@ public class DaftarHargaRepositoryImpl implements DaftarHargaRepository {
                                 new DaftarHarga(
                                         rs.getString("idDaftarHarga"),
                                         rs.getString("namaPaket"),
-                                        rs.getString("hargaPaket")
+                                        rs.getString("hargaPaket"),
+                                        rs.getInt("status")
+
                                 ));
         return daftarHargaList;
     }

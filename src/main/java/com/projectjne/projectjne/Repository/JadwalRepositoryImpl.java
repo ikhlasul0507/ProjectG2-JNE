@@ -74,7 +74,8 @@ public class JadwalRepositoryImpl implements JadwalRepository {
                             new DaftarHarga(
                                     rs.getString("idDaftarHarga"),
                                     rs.getString("namaPaket"),
-                                    rs.getString("hargaPaket")
+                                    rs.getString("hargaPaket"),
+                                    rs.getInt("status")
                             )
             )).get(0));
         }
@@ -151,7 +152,9 @@ public class JadwalRepositoryImpl implements JadwalRepository {
                         new DaftarHarga(
                                 rs.getString("idDaftarHarga"),
                                 rs.getString("namaPaket"),
-                                rs.getString("hargaPaket")
+                                rs.getString("hargaPaket"),
+                                rs.getInt("status")
+
                         )
         )).get(0));
         return jadwal;
@@ -214,7 +217,8 @@ public class JadwalRepositoryImpl implements JadwalRepository {
                             new DaftarHarga(
                                     rs.getString("idDaftarHarga"),
                                     rs.getString("namaPaket"),
-                                    rs.getString("hargaPaket")
+                                    rs.getString("hargaPaket"),
+                                    rs.getInt("status")
                             )
             )).get(0));
         }
@@ -279,7 +283,8 @@ public class JadwalRepositoryImpl implements JadwalRepository {
                             new DaftarHarga(
                                     rs.getString("idDaftarHarga"),
                                     rs.getString("namaPaket"),
-                                    rs.getString("hargaPaket")
+                                    rs.getString("hargaPaket"),
+                                    rs.getInt("status")
                             )
             )).get(0));
         }
@@ -360,7 +365,8 @@ public class JadwalRepositoryImpl implements JadwalRepository {
                             new DaftarHarga(
                                     rs.getString("idDaftarHarga"),
                                     rs.getString("namaPaket"),
-                                    rs.getString("hargaPaket")
+                                    rs.getString("hargaPaket"),
+                                    rs.getInt("status")
                             )
             )).get(0));
         }

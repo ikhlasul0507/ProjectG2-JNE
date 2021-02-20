@@ -14,11 +14,22 @@ public class DaftarHarga {
     private String namaPaket;
     @NotBlank(message = "harga may not be null")
     private String hargaPaket;
+    @NotBlank(message = "status may not be null")
+    private int status;
 
-    public DaftarHarga(String idDaftarHarga, String namaPaket, String hargaPaket) {
+    public DaftarHarga(@NotNull String idDaftarHarga, @NotBlank(message = "Name may not be null") @Size(min = 0, max = 50) String namaPaket, @NotBlank(message = "harga may not be null") String hargaPaket, @NotBlank(message = "status may not be null") int status) {
         this.idDaftarHarga = idDaftarHarga;
         this.namaPaket = namaPaket;
         this.hargaPaket = hargaPaket;
+        this.status = status;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getIdDaftarHarga() {
