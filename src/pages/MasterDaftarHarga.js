@@ -9,6 +9,7 @@ class MasterDaftarHarga extends Component {
             idDaftarHarga: "",
             namaPaket: "",
             hargaPaket: "",
+            status: 0,
             isUpdate: false,
             isLoaded: false,
             paging: 1,
@@ -109,6 +110,7 @@ class MasterDaftarHarga extends Component {
                     idDaftarHarga: res.data.idDaftarHarga,
                     namaPaket: res.data.namaPaket,
                     hargaPaket: res.data.hargaPaket,
+                    status: res.data.status,
                     isUpdate: true
                 })
             })
@@ -118,7 +120,8 @@ class MasterDaftarHarga extends Component {
         axios.put(this.state.url + this.state.idDaftarHarga, {
             idDaftarHarga: this.state.idDaftarHarga,
             namaPaket: this.state.namaPaket,
-            hargaPaket: this.state.hargaPaket
+            hargaPaket: this.state.hargaPaket,
+            status: this.state.status
         })
             .then((res) => {
                 this.setState({
@@ -146,7 +149,8 @@ class MasterDaftarHarga extends Component {
     saveToApi = () => {
         axios.post(this.state.url, {
             namaPaket: this.state.namaPaket,
-            hargaPaket: this.state.hargaPaket
+            hargaPaket: this.state.hargaPaket,
+            status: this.state.status
         })
             .then((res) => {
                 console.log(res)
@@ -160,7 +164,8 @@ class MasterDaftarHarga extends Component {
     clearForm = () => {
         this.setState({
             namaPaket: "",
-            hargaPaket: ""
+            hargaPaket: "",
+            status:""
         })
     }
     prev = () => {
@@ -194,7 +199,7 @@ class MasterDaftarHarga extends Component {
         console.log(this.state.statusPrev)
     }
     render() {
-        const { idDaftarHarga,namaPaket,hargaPaket } = this.state
+        const { idDaftarHarga,namaPaket,hargaPaket ,status} = this.state
         let {
             isLoaded,
         } = this.state
@@ -225,6 +230,7 @@ class MasterDaftarHarga extends Component {
                                     <th scope="col">ID Daftar Harga</th>
                                     <th scope="col">Nama Paket</th>
                                     <th scope="col">Harga Paket</th>
+                                    <th scope="col">Status</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
@@ -233,9 +239,10 @@ class MasterDaftarHarga extends Component {
                                     this.state.DaftarHarga.map(
                                         (Item, idx) =>
                                             <tr key={idx}>
-                                                <td>{Item.idDaftarHarga}</td>
+                                                <td className="idJadwal">{Item.idDaftarHarga}</td>
                                                 <td>{Item.namaPaket}</td>
                                                 <td>{Item.hargaPaket}</td>
+                                                <td>{Item.status}</td>
                                                 <td>
                                                     <button className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => this.editApi(Item.idDaftarHarga)}>Edit</button>
                                                     <button className="btn btn-danger ml-3" onClick={() => { if (window.confirm('Yakin Mau Delete ?')) { this.hapusApi(Item.idDaftarHarga) } }} >Hapus</button>
@@ -272,6 +279,7 @@ class MasterDaftarHarga extends Component {
                                     <div className="mb-3">
                                         <label className="form-label">Harga Paket</label>
                                         <input type="text" className="form-control" name="hargaPaket" value={hargaPaket} onChange={this.setValue} placeholder="Harga Paket" />
+                                        <input type="hidden" className="form-control" name="status" value={status} onChange={this.setValue} placeholder="Harga Paket" />
                                     </div>
                                 </div>
                                 <div className="modal-footer">

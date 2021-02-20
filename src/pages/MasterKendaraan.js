@@ -227,7 +227,7 @@ class MasterKendaraan extends Component {
                                     this.state.kendaraan.map(
                                         (Item, idx) =>
                                             <tr key={idx}>
-                                                <td>{Item.idKendaraan}</td>
+                                                <td className="idJadwal">{Item.idKendaraan}</td>
                                                 <td>{Item.platKendaraan}</td>
                                                 <td>
                                                     <button className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => this.editApi(Item.idKendaraan)}>Edit</button>

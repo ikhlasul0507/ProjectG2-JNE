@@ -18,7 +18,8 @@ class MasterKurir extends Component {
             paging: 1,
             statusPrev: "page-item disabled",
             statusNext: "page-item",
-            url: "http://localhost:8080/jne/kurir/"
+            url: "http://localhost:8080/jne/kurir/",
+            urlKendaraan : "http://localhost:8080/jne/kendaraan/"
         }
     }
     componentDidMount() {
@@ -80,7 +81,7 @@ class MasterKurir extends Component {
         }
     }
     ambilApiKendaraan = () => {
-        axios.get("http://localhost:8080/jne/kendaraan/")
+        axios.get(this.state.urlKendaraan)
             .then((res) => {
                 console.log("data", res.data)
                 this.setState({
@@ -267,7 +268,7 @@ class MasterKurir extends Component {
                                     this.state.kurir.map(
                                         (Item, idx) =>
                                             <tr key={idx}>
-                                                <td>{Item.idKurir}</td>
+                                                <td className="idJadwal">{Item.idKurir}</td>
                                                 <td>{Item.kendaraanList.platKendaraan}</td>
                                                 <td>{Item.noKtp}</td>
                                                 <td>{Item.namaKurir}</td>
