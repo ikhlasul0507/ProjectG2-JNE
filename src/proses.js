@@ -1,7 +1,7 @@
 
 import './App.css';
 import App from './App'
-import Keluar from './pages/keluar';
+import Keluar from './pages/logout';
 import Login from './pages/login';
 import { connect } from "react-redux"
 import React, { Component } from 'react'

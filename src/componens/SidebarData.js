@@ -44,7 +44,7 @@ export const SidebarData = [
     },
     {
       title: 'Keluar',
-      path: '/keluar',
-      icon: <IoIcons.IoMdExit />
+      path: '/logout',
+      icon: <IoIcons.IoMdExit/>
     }
   ];

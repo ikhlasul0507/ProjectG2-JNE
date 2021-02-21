@@ -70,27 +70,27 @@ class Jadwal extends Component {
                 axios.get(this.state.url + "/nama/" + nilai)
                     .then((res) => {
                         console.log("data", nilai)
-                        let kurir = [];
-                        kurir.push(res.data)
-                        console.log("data cari :", kurir)
+                        let jadwal = [];
+                        jadwal.push(res.data)
+                        console.log("data cari :", jadwal)
                         this.setState({
-                            kurir: kurir
+                            jadwal: jadwal
                         })
 
                     })
                     .catch((e) => {
                         console.log(e);
-                        alert("Plat Kendaraan  Tidak Ada!!");
+                        alert("ID  Tidak Ada!!");
                     });
             } else if (this.valueSelect === "id") {
                 axios.get(this.state.url + nilai)
                     .then((res) => {
                         console.log("data", nilai)
-                        let kurir = [];
-                        kurir.push(res.data)
-                        console.log("data cari :", kurir)
+                        let jadwal = [];
+                        jadwal.push(res.data)
+                        console.log("data cari :", jadwal)
                         this.setState({
-                            kurir: kurir
+                            jadwal: jadwal
                         })
 
                     })
@@ -307,7 +307,7 @@ class Jadwal extends Component {
                         <select className="form-select" aria-label="Default select example" onChange={this.onChangeSelect}>
                             <option defaultValue="0">--Pilih--</option>
                             <option value="id">ID</option>
-                            <option value="nama">Nama</option>
+                            {/* <option value="nama">Nama</option> */}
                         </select>
                         <input type="text" className="form-control" name="cari" onChange={el => this.onChangeSearch(el)} placeholder="Pencarian..." aria-label="Recipient's username" aria-describedby="button-addon2" />
 
@@ -341,11 +341,11 @@ class Jadwal extends Component {
                                                 <td>{Item.kurirList.namaKurir}</td>
                                                 <td>{Item.kurirList.handphone}</td>
                                                 <td>{Item.daftarHargaList.namaPaket}</td>
-                                                <td>{Item.daftarHargaList.hargaPaket}</td>
+                                                <td>Rp.{Item.daftarHargaList.hargaPaket},-</td>
                                                 <td>{Item.qty}</td>
                                                 <td>{Item.kg}</td>
-                                                <td>{Item.harga}</td>
-                                                <td>{Item.total}</td>
+                                                <td>Rp.{Item.harga},-</td>
+                                                <td>Rp.{Item.total},-</td>
                                                 <td>
                                                     <button type="button" className="btn btn-warning">
                                                         Sedang Pengiriman<span className="badge bg-primary">{Item.daftarHargaList.status}</span>
