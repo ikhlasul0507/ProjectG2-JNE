@@ -1,9 +1,11 @@
 
 import './App.css';
-import Proses from './proses'
+import Data from './data'
+
+
 function App() {
   return (
-    <Proses/>
+    <Data/>
   );
 }
 

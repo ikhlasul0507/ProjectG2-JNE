@@ -23,9 +23,9 @@ class Jadwal extends Component {
             statusPrev: "page-item disabled",
             statusNext: "page-item",
             url: "http://localhost:8080/jne/jadwal/",
-            urlKendaraan : "http://localhost:8080/jne/kendaraan/",
-            urlKurir : "http://localhost:8080/jne/kurir/",
-            urlPaket : "http://localhost:8080/jne/harga/"
+            urlKendaraan: "http://localhost:8080/jne/kendaraan/",
+            urlKurir: "http://localhost:8080/jne/kurir/",
+            urlPaket: "http://localhost:8080/jne/harga/"
         }
     }
     componentDidMount() {
@@ -35,10 +35,23 @@ class Jadwal extends Component {
         this.ambilApiPaket()
     }
     setValue = el => {
-        console.log(el.target.value);
+        console.log(el.target);
         this.setState({
             [el.target.name]: el.target.value,
         })
+        if(el.target.name === "idDaftarHarga"){
+            console.log(el.target.value)
+            let data = el.target.value
+            var cariIndex = this.state.Paket.findIndex(function(data1){
+                return data1.idDaftarHarga===data
+            });
+            console.log(this.state.Paket[cariIndex].hargaPaket)
+            console.log(cariIndex)
+            this.setState({
+                harga : this.state.Paket[cariIndex].hargaPaket
+            })
+            console.log("harga :", this.state.harga)
+        }
     }
     onChangeSelect = el => {
         this.valueSelect = el.target.value;
@@ -208,28 +221,28 @@ class Jadwal extends Component {
 
     }
     saveToApi = () => {
-        console.log(this.state.idKurir);
-        console.log(this.state.idKendaraan);
-        console.log(this.state.idDaftarHarga);
-        console.log(this.state.qty);
-        console.log(this.state.kg);
-        console.log(this.state.harga);
-        console.log(this.state.total);
+        console.log("Id Kurir :",this.state.idKurir);
+        console.log("Id Kendaraan :",this.state.idKendaraan);
+        console.log("Id Daftar Harga :",this.state.idDaftarHarga);
+        console.log("Qty :",this.state.qty);
+        console.log("kg",this.state.kg);
+        console.log("harga",this.state.harga);
         axios.post(this.state.url, {
             idKurir: this.state.idKurir,
             idKendaraan: this.state.idKendaraan,
-            idDaftarHarga: this.state.idDaftarHarga,
+            idPaket: this.state.idDaftarHarga,
             qty: this.state.qty,
             kg: this.state.kg,
-            harga: this.state.harga,
-            total: this.state.total
+            harga: this.state.harga
         })
             .then((res) => {
                 console.log(res)
                 this.ambilApi();
+                this.ambilApiPaket();
                 alert("Berhasil Di Simpan !")
             })
-            .catch(() => {
+            .catch((res) => {
+                console.log(res)
                 alert("Gagal Di Simpan !")
             })
     }
@@ -275,8 +288,8 @@ class Jadwal extends Component {
         console.log(this.state.statusPrev)
     }
     render() {
-        let { idKendaraan, idKurir, idDaftarHarga, qty, kg, harga,total} = this.state
-        const total1 = (qty*kg*harga)+((qty*kg*harga)*0.10)
+        let { idKendaraan, idKurir, idDaftarHarga, qty, kg, harga, total } = this.state
+        const total1 = (qty * kg * harga) + ((qty * kg * harga) * 0.10)
         this.state.total = total1
         console.log("total state :", this.state.total)
         let {
@@ -333,7 +346,11 @@ class Jadwal extends Component {
                                                 <td>{Item.kg}</td>
                                                 <td>{Item.harga}</td>
                                                 <td>{Item.total}</td>
-                                                <td>{Item.daftarHargaList.status}</td>
+                                                <td>
+                                                    <button type="button" className="btn btn-warning">
+                                                        Sedang Pengiriman<span className="badge bg-primary">{Item.daftarHargaList.status}</span>
+                                                    </button>
+                                                </td>
                                                 <td>
                                                     <button className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => this.editApi(Item.idJadwal)}>Edit</button>
                                                     <button className="btn btn-danger ml-3" onClick={() => { if (window.confirm('Yakin Mau Delete ?')) { this.hapusApi(Item.idJadwal) } }} >Hapus</button>
@@ -363,7 +380,7 @@ class Jadwal extends Component {
                                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div className="modal-body">
-                                <div className="mb-3">
+                                    <div className="mb-3">
                                         <label className="form-label">Kurir</label>
                                         <select className="form-control" aria-label="Default select example" name="idKurir" value={idKurir} onChange={this.setValue}>
                                             <option defaultValue="0">--Pilih Kurir--</option>
@@ -409,7 +426,7 @@ class Jadwal extends Component {
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Harga</label>
-                                        <input type="number" className="form-control" name="harga" value={harga} onChange={this.setValue} placeholder="Harga" />
+                                        <input type="number" disabled className="form-control" name="harga" value={harga} onChange={this.setValue} placeholder="Harga" />
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Total</label>
