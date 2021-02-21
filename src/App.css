@@ -32,11 +32,15 @@ body{
   font-weight: bold;
 }
 .card img{
-  height: 250px;
+  height: 400px;
 }
 .idJadwal {
   background-color:  #1e57b3;
   color: #ffffff;
+}
+.idUserProps{
+  background-color:  #1e57b3;
+  color: #fafafa;
 }
 th{
   background-color:  #1e57b3;

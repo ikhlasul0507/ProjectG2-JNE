@@ -6,6 +6,7 @@ import * as AiIcons from 'react-icons/ai';
 import { SidebarData } from './SidebarData';
 import SubMenu from './SubMenu';
 import { IconContext } from 'react-icons/lib';
+import { connect } from 'react-redux'
 
 const Nav = styled.div`
   background: #1e57b3;
@@ -39,20 +40,20 @@ const SidebarWrap = styled.div`
   width: 100%;
 `;
 
-const Sidebar = () => {
-    const [sidebar, setSidebar] = useState(false);
-
-    const showSidebar = () => setSidebar(!sidebar);
+const Sidebar = (props) => {
+  console.log(props)
+  const [sidebar, setSidebar] = useState(false);
+  const showSidebar = () => setSidebar(!sidebar);
   return (
     <>
-       <IconContext.Provider value={{ color: '#fff' }}>
+      <IconContext.Provider value={{ color: '#fff' }}>
         <Nav>
           <NavIcon to='#'>
             <FaIcons.FaBars onClick={showSidebar} />
           </NavIcon>
         </Nav>
         <SidebarNav sidebar={sidebar}>
-            
+
           <SidebarWrap>
             <NavIcon to='#'>
               <AiIcons.AiOutlineClose onClick={showSidebar} />
@@ -63,8 +64,24 @@ const Sidebar = () => {
           </SidebarWrap>
         </SidebarNav>
       </IconContext.Provider>
+        
+        <div className="card">
+        <div className="card-header idUserProps">
+        <FaIcons.FaUsers/> Selamat Datang {props.dataLogin.username}
+  </div>
+        </div>
     </>
   );
 };
 
-export default Sidebar;
+
+const mapStateToProps = state => ({
+  dataLogin: state.AReducer.userLogin
+})
+
+const mapDispatchToProps = dispatch => {
+  return {
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

@@ -4,10 +4,14 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username : "",
-            password:""
+            users : [],
+            username: "",
+            password: "",
+            
         }
     }
+
+   
     setValue = e => {
         this.setState({
             [e.target.name]: e.target.value
@@ -15,20 +19,20 @@ class Login extends Component {
         console.log(e.target.value)
     }
     render() {
-        const {username, password} = this.state
+        const { username, password } = this.state
         return (
-            <div class="container-form">
+            <div className="container-form">
                 <h1>Login</h1>
-                <form>
+                <form >
                     <label>Username</label><br />
                     <input type="text" name="username" value={username} onChange={this.setValue} placeholder="Enter username..." /><br />
                     <label>Password</label><br />
                     <input type="password" name="password" value={password} onChange={this.setValue} placeholder="Enter password..." /><br />
-                    <button onClick={()=> this.props.doLogin({username, password})}>Log in</button>
+                    <button type="button" onClick={() => this.props.doLogin({ username, password })}> Log in</button>
                 </form>
             </div>
         );
     }
 }
 
-export default Login;
+export default (Login);
