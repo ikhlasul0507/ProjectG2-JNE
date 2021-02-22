@@ -1,6 +1,23 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-
+import DivSingleClass from "../componens/div/divSingleClass"
+import DivModal from "../componens/div/divModal"
+import Label from "../componens/label"
+import Input from "../componens/input"
+import H5 from "../componens/h5"
+import Button from "../componens/button"
+import Select from "../componens/select"
+import Option from "../componens/option"
+import Ul from "../componens/ul"
+import Li from "../componens/li"
+import A from "../componens/a"
+import Nav from "../componens/nav"
+import Table from "../componens/table"
+import Thead from "../componens/table/thead"
+import Tr from "../componens/table/tr"
+import Td from "../componens/table/td"
+import Th from "../componens/table/th"
+import Tbody from "../componens/table/tbody"
 class Jadwal extends Component {
     constructor(props) {
         super(props);
@@ -109,10 +126,7 @@ class Jadwal extends Component {
                     Kendaraan: res.data,
                     isLoaded: true
                 })
-            })
-            .catch(() => {
-                alert("Gagal Mengambil Data !")
-            })
+            })  
 
     }
     ambilApiKurir = () => {
@@ -123,9 +137,6 @@ class Jadwal extends Component {
                     Kurir: res.data,
                     isLoaded: true
                 })
-            })
-            .catch(() => {
-                alert("Gagal Mengambil Data !")
             })
 
     }
@@ -138,9 +149,6 @@ class Jadwal extends Component {
                     isLoaded: true
                 })
             })
-            .catch(() => {
-                alert("Gagal Mengambil Data !")
-            })
 
     }
     ambilApi = () => {
@@ -151,9 +159,6 @@ class Jadwal extends Component {
                     jadwal: res.data,
                     isLoaded: true
                 })
-            })
-            .catch(() => {
-                alert("Gagal Mengambil Data !")
             })
 
     }
@@ -296,151 +301,151 @@ class Jadwal extends Component {
             isLoaded,
         } = this.state
         if (!isLoaded) {
-            return <div className="loader">Loading Data...</div>
+            return <DivSingleClass className="loader">Loading Data...</DivSingleClass>
         } else {
             return (
-                <div className='container'>
+                <DivSingleClass className='container'>
                     <button type="button" className="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Tambah Data
-                </button>
-                    <div className="input-group mb-3 mt-3">
-                        <select className="form-select" aria-label="Default select example" onChange={this.onChangeSelect}>
-                            <option defaultValue="0">--Pilih--</option>
-                            <option value="id">ID</option>
+                    </button>
+                    <DivSingleClass className="input-group mb-3 mt-3">
+                        <Select className="form-select" aria-label="Default select example" onChange={this.onChangeSelect}>
+                            <Option defaultValue="0">--Pilih--</Option>
+                            <Option value="id">ID</Option>
                             {/* <option value="nama">Nama</option> */}
-                        </select>
-                        <input type="text" className="form-control" name="cari" onChange={el => this.onChangeSearch(el)} placeholder="Pencarian..." aria-label="Recipient's username" aria-describedby="button-addon2" />
+                        </Select>
+                        <Input type="text" className="form-control" name="cari" onChange={el => this.onChangeSearch(el)} placeholder="Pencarian..." aria-label="Recipient's username" aria-describedby="button-addon2" />
 
-                    </div>
-                    <div className="table-responsive">
+                    </DivSingleClass>
+                    <DivSingleClass className="table-responsive">
                         Page : {this.state.paging}
-                        <table className="table mt-3" border='1'>
-                            <thead>
-                                <tr>
-                                    <th scope="col">ID Jadwal</th>
-                                    <th scope="col">Plat Kendaraan</th>
-                                    <th scope="col">Nama Kurir</th>
-                                    <th scope="col">Handphone</th>
-                                    <th scope="col">Paket</th>
-                                    <th scope="col">Harga Paket</th>
-                                    <th scope="col">Qty</th>
-                                    <th scope="col">Berat (Kg)</th>
-                                    <th scope="col">Harga (Rp)</th>
-                                    <th scope="col">Total (Rp)</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                        <Table className="table mt-3" border='1'>
+                            <Thead>
+                                <Tr>
+                                    <Th scope="col">ID Jadwal</Th>
+                                    <Th scope="col">Plat Kendaraan</Th>
+                                    <Th scope="col">Nama Kurir</Th>
+                                    <Th scope="col">Handphone</Th>
+                                    <Th scope="col">Paket</Th>
+                                    <Th scope="col">Harga Paket</Th>
+                                    <Th scope="col">Qty</Th>
+                                    <Th scope="col">Berat (Kg)</Th>
+                                    <Th scope="col">Harga (Rp)</Th>
+                                    <Th scope="col">Total (Rp)</Th>
+                                    <Th scope="col">Status</Th>
+                                    <Th scope="col">Aksi</Th>
+                                </Tr>
+                            </Thead>
+                            <Tbody>
                                 {
                                     this.state.jadwal.map(
                                         (Item, idx) =>
-                                            <tr key={idx}>
-                                                <td className="idJadwal">{Item.idJadwal}</td>
-                                                <td>{Item.kurirList.kendaraanList.platKendaraan}</td>
-                                                <td>{Item.kurirList.namaKurir}</td>
-                                                <td>{Item.kurirList.handphone}</td>
-                                                <td>{Item.daftarHargaList.namaPaket}</td>
-                                                <td>Rp.{Item.daftarHargaList.hargaPaket},-</td>
-                                                <td>{Item.qty}</td>
-                                                <td>{Item.kg}</td>
-                                                <td>Rp.{Item.harga},-</td>
-                                                <td>Rp.{Item.total},-</td>
-                                                <td>
-                                                    <button type="button" className="btn btn-warning">
+                                            <Tr key={idx}>
+                                                <Td className="idJadwal">{Item.idJadwal}</Td>
+                                                <Td>{Item.kurirList.kendaraanList.platKendaraan}</Td>
+                                                <Td>{Item.kurirList.namaKurir}</Td>
+                                                <Td>{Item.kurirList.handphone}</Td>
+                                                <Td>{Item.daftarHargaList.namaPaket}</Td>
+                                                <Td>Rp.{Item.daftarHargaList.hargaPaket},-</Td>
+                                                <Td>{Item.qty}</Td>
+                                                <Td>{Item.kg}</Td>
+                                                <Td>Rp.{Item.harga},-</Td>
+                                                <Td>Rp.{Item.total},-</Td>
+                                                <Td>
+                                                    <Button type="button" className="btn btn-warning">
                                                         Sedang Pengiriman<span className="badge bg-primary">{Item.daftarHargaList.status}</span>
-                                                    </button>
-                                                </td>
-                                                <td>
+                                                    </Button>
+                                                </Td>
+                                                <Td>
                                                     <button className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => this.editApi(Item.idJadwal)}>Edit</button>
-                                                    <button className="btn btn-danger ml-3" onClick={() => { if (window.confirm('Yakin Mau Delete ?')) { this.hapusApi(Item.idJadwal) } }} >Hapus</button>
-                                                </td>
-                                            </tr>
+                                                    <Button className="btn btn-danger ml-3" onClick={() => { if (window.confirm('Yakin Mau Delete ?')) { this.hapusApi(Item.idJadwal) } }} >Hapus</Button>
+                                                </Td>
+                                            </Tr>
                                     )
                                 }
-                            </tbody>
-                        </table>
-                    </div>
-                    <nav aria-label="...">
-                        <ul className="pagination">
-                            <li className={this.state.statusPrev}>
-                                <a className="page-link" href="#" tabIndex="-1" aria-disabled="true" onClick={this.prev}>Previous</a>
-                            </li>
-                            <li className={this.state.statusNext}>
-                                <a className="page-link" href="#" onClick={this.next}>Next</a>
-                            </li>
-                        </ul>
-                    </nav>
+                            </Tbody>
+                        </Table>
+                    </DivSingleClass>
+                    <Nav aria-label="...">
+                        <Ul className="pagination">
+                            <Li className={this.state.statusPrev}>
+                                <A className="page-link" href="#" tabIndex="-1" aria-disabled="true" onClick={this.prev}>Previous</A>
+                            </Li>
+                            <Li className={this.state.statusNext}>
+                                <A className="page-link" href="#" onClick={this.next}>Next</A>
+                            </Li>
+                        </Ul>
+                    </Nav>
 
                     <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false" role="dialog" style={{ paddingRight: 17 }}>
-                        <div className="modal-dialog">
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <h5 className="modal-title" id="exampleModalLabel">Data Jadwal</h5>
-                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div className="modal-body">
-                                    <div className="mb-3">
-                                        <label className="form-label">Kurir</label>
-                                        <select className="form-control" aria-label="Default select example" name="idKurir" value={idKurir} onChange={this.setValue}>
-                                            <option defaultValue="0">--Pilih Kurir--</option>
+                        <DivSingleClass className="modal-dialog">
+                            <DivSingleClass className="modal-content">
+                                <DivSingleClass className="modal-header">
+                                    <H5 className="modal-title" id="exampleModalLabel">Data Jadwal</H5>
+                                    <Button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></Button>
+                                </DivSingleClass>
+                                <DivSingleClass className="modal-body">
+                                    <DivSingleClass className="mb-3">
+                                        <Label className="form-label">Kurir</Label>
+                                        <Select className="form-control" aria-label="Default select example" name="idKurir" value={idKurir} onChange={this.setValue}>
+                                            <Option defaultValue="0">--Pilih Kurir--</Option>
                                             {
                                                 this.state.Kurir.map(
                                                     (Item, idx) =>
-                                                        <option key={idx} value={Item.idKurir}>{Item.namaKurir}</option>
+                                                        <Option key={idx} value={Item.idKurir}>{Item.namaKurir}</Option>
                                                 )
                                             }
-                                        </select>
-                                    </div>
-                                    <div className="mb-3">
-                                        <label className="form-label">Plat Kendaraan</label>
-                                        <select className="form-control" aria-label="Default select example" name="idKendaraan" value={idKendaraan} onChange={this.setValue}>
-                                            <option defaultValue="0">--Pilih Kendaraan--</option>
+                                        </Select>
+                                    </DivSingleClass>
+                                    <DivSingleClass className="mb-3">
+                                        <Label className="form-label">Plat Kendaraan</Label>
+                                        <Select className="form-control" aria-label="Default select example" name="idKendaraan" value={idKendaraan} onChange={this.setValue}>
+                                            <Option defaultValue="0">--Pilih Kendaraan--</Option>
                                             {
                                                 this.state.Kendaraan.map(
                                                     (Item, idx) =>
-                                                        <option key={idx} value={Item.idKendaraan}>{Item.platKendaraan}</option>
+                                                        <Option key={idx} value={Item.idKendaraan}>{Item.platKendaraan}</Option>
                                                 )
                                             }
-                                        </select>
-                                    </div>
-                                    <div className="mb-3">
-                                        <label className="form-label">Paket</label>
-                                        <select className="form-control" aria-label="Default select example" name="idDaftarHarga" value={idDaftarHarga} onChange={this.setValue}>
-                                            <option defaultValue="0">--Pilih Paket--</option>
+                                        </Select>
+                                    </DivSingleClass>
+                                    <DivSingleClass className="mb-3">
+                                        <Label className="form-label">Paket</Label>
+                                        <Select className="form-control" aria-label="Default select example" name="idDaftarHarga" value={idDaftarHarga} onChange={this.setValue}>
+                                            <Option defaultValue="0">--Pilih Paket--</Option>
                                             {
                                                 this.state.Paket.map(
                                                     (Item, idx) =>
-                                                        <option key={idx} value={Item.idDaftarHarga}>{Item.namaPaket}</option>
+                                                        <Option key={idx} value={Item.idDaftarHarga}>{Item.namaPaket}</Option>
                                                 )
                                             }
-                                        </select>
-                                    </div>
-                                    <div className="mb-3">
-                                        <label className="form-label">Qty</label>
-                                        <input type="number" className="form-control" name="qty" value={qty} onChange={this.setValue} placeholder="Qty" />
-                                    </div>
-                                    <div className="mb-3">
-                                        <label className="form-label">Kg</label>
-                                        <input type="number" className="form-control" name="kg" value={kg} onChange={this.setValue} placeholder="Kg" />
-                                    </div>
-                                    <div className="mb-3">
-                                        <label className="form-label">Harga</label>
-                                        <input type="number" disabled className="form-control" name="harga" value={harga} onChange={this.setValue} placeholder="Harga" />
-                                    </div>
-                                    <div className="mb-3">
-                                        <label className="form-label">Total</label>
-                                        <input type="number" disabled className="form-control" name="total" value={total} onChange={this.setValue} placeholder="Total" />
-                                    </div>
-                                </div>
-                                <div className="modal-footer">
+                                        </Select>
+                                    </DivSingleClass>
+                                    <DivSingleClass className="mb-3">
+                                        <Label className="form-label">Qty</Label>
+                                        <Input type="number" className="form-control" name="qty" value={qty} onChange={this.setValue} placeholder="Qty" />
+                                    </DivSingleClass>
+                                    <DivSingleClass className="mb-3">
+                                        <Label className="form-label">Kg</Label>
+                                        <Input type="number" className="form-control" name="kg" value={kg} onChange={this.setValue} placeholder="Kg" />
+                                    </DivSingleClass>
+                                    <DivSingleClass className="mb-3">
+                                        <Label className="form-label">Harga</Label>
+                                        <Input type="number" disabled className="form-control" name="harga" value={harga} onChange={this.setValue} placeholder="Harga" />
+                                    </DivSingleClass>
+                                    <DivSingleClass className="mb-3">
+                                        <Label className="form-label">Total</Label>
+                                        <Input type="number" disabled className="form-control" name="total" value={total} onChange={this.setValue} placeholder="Total" />
+                                    </DivSingleClass>
+                                </DivSingleClass>
+                                <DivSingleClass className="modal-footer">
                                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                    <button type="button" className="btn btn-primary" onClick={this.saveApi}>Simpan</button>
-                                </div>
-                            </div>
-                        </div>
+                                    <Button type="button" className="btn btn-primary" onClick={this.saveApi}>Simpan</Button>
+                                </DivSingleClass>
+                            </DivSingleClass>
+                        </DivSingleClass>
                     </div>
-                </div>
+                </DivSingleClass>
             );
         }
     }

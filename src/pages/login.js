@@ -1,4 +1,10 @@
 import React, { Component } from 'react'
+import Button from "../componens/button"
+import Label from "../componens/label"
+import Input from "../componens/input"
+import H1 from "../componens/h1"
+import Form from "../componens/form"
+import CFrom from "../componens/div/cForm"
 
 class Login extends Component {
     constructor(props) {
@@ -21,16 +27,16 @@ class Login extends Component {
     render() {
         const { username, password } = this.state
         return (
-            <div className="container-form">
-                <h1>Login</h1>
-                <form >
-                    <label>Username</label><br />
-                    <input type="text" name="username" value={username} onChange={this.setValue} placeholder="Enter username..." /><br />
-                    <label>Password</label><br />
-                    <input type="password" name="password" value={password} onChange={this.setValue} placeholder="Enter password..." /><br />
-                    <button type="button" onClick={() => this.props.doLogin({ username, password })}> Log in</button>
-                </form>
-            </div>
+            <CFrom className="container-form">
+                <H1>Login SIMANKET</H1>
+                <Form >
+                    <Label>Username</Label><br />
+                    <Input type="text" name="username" value={username} onChange={this.setValue} placeholder="Enter username..." /><br />
+                    <Label>Password</Label><br />
+                    <Input type="password" name="password" value={password} onChange={this.setValue} placeholder="Enter password..." /><br />
+                    <Button type="button" onClick={() => this.props.doLogin({ username, password })}>Log in</Button>
+                </Form>
+            </CFrom>
         );
     }
 }
