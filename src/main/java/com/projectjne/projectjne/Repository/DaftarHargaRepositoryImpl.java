@@ -14,7 +14,7 @@ public class DaftarHargaRepositoryImpl implements DaftarHargaRepository {
     private JdbcTemplate jdbcTemplate;
 
     public List<DaftarHarga> findAll() {
-        return jdbcTemplate.query("select * from tbl_daftar_harga",
+        return jdbcTemplate.query("select * from tbl_daftar_harga WHERE status=0 ORDER BY status ASC",
                 (rs, rowNum)->
                         new DaftarHarga(
                                 rs.getString("idDaftarHarga"),
@@ -34,6 +34,7 @@ public class DaftarHargaRepositoryImpl implements DaftarHargaRepository {
     }
     // update new customer
     public void updateDaftarHarga(DaftarHarga daftarHarga) {
+        System.out.println(daftarHarga.getIdDaftarHarga());
         jdbcTemplate.update("UPDATE tbl_daftar_harga SET namaPaket= ?, hargaPaket=?, status=? Where idDaftarHarga=?",
                 daftarHarga.getNamaPaket(), daftarHarga.getHargaPaket(),daftarHarga.getStatus(), daftarHarga.getIdDaftarHarga());
     }
@@ -82,7 +83,7 @@ public class DaftarHargaRepositoryImpl implements DaftarHargaRepository {
         System.out.println("start :"+start);
         System.out.println("limit :"+limit);
         List<DaftarHarga> daftarHargaList =
-                jdbcTemplate.query("SELECT * FROM tbl_daftar_harga LIMIT " + start + "," + limit + ";",
+                jdbcTemplate.query("SELECT * FROM tbl_daftar_harga ORDER BY status ASC LIMIT " + start + "," + limit + ";",
                         (rs, rowNum) ->
                                 new DaftarHarga(
                                         rs.getString("idDaftarHarga"),

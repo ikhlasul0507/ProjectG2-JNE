@@ -59,29 +59,33 @@ public class KurirController {
     //insert kuriur
     @RequestMapping(value = "/kurir/", method = RequestMethod.POST)
     public ResponseEntity<?> createKurir(@Valid @RequestBody Kurir kurir) {
-//        try{
-        logger.info("Creating Kurir  : {} ", kurir);
-        if(kurir.getNamaKurir()== ""){
-            return new ResponseEntity<>(new CustomErrorType("nama Kurir not found."),
-                    HttpStatus.NOT_FOUND);
-        }else if(kurir.getIdKendaraan() == ""){
-            return new ResponseEntity<>(new CustomErrorType("id Kendaraan not found."),
-                    HttpStatus.NOT_FOUND);
-        }else if(kurir.getNoKtp() == ""){
-            return new ResponseEntity<>(new CustomErrorType("no ktp not found."),
-                    HttpStatus.NOT_FOUND);
-        }else if(kurir.getHandphone() == ""){
-            return new ResponseEntity<>(new CustomErrorType("handphone not found."),
-                    HttpStatus.NOT_FOUND);
-        }else if(kurir.getJenisKelamin() == ""){
-            return new ResponseEntity<>(new CustomErrorType("jenis kelamin not found."),
-                    HttpStatus.NOT_FOUND);
-        }else if (kurirService.isKurirExist(kurir)) {
-            logger.error("Unable to create, kurir already exist", kurir.getNamaKurir());
-            return new ResponseEntity<>(new CustomErrorType("Unable to create, kurir already" + kurir.getNamaKurir()), HttpStatus.CONFLICT);
-        } else {
-            kurirService.saveKurir(kurir);
-            return new ResponseEntity<>("Data Berhasil Di Simpan", HttpStatus.OK);
+        try {
+            logger.info("Creating Kurir  : {} ", kurir);
+            if (kurir.getNamaKurir() == "") {
+                return new ResponseEntity<>(new CustomErrorType("nama Kurir not found."),
+                        HttpStatus.NOT_FOUND);
+            } else if (kurir.getIdKendaraan() == "") {
+                return new ResponseEntity<>(new CustomErrorType("id Kendaraan not found."),
+                        HttpStatus.NOT_FOUND);
+            } else if (kurir.getNoKtp() == "") {
+                return new ResponseEntity<>(new CustomErrorType("no ktp not found."),
+                        HttpStatus.NOT_FOUND);
+            } else if (kurir.getHandphone() == "") {
+                return new ResponseEntity<>(new CustomErrorType("handphone not found."),
+                        HttpStatus.NOT_FOUND);
+            } else if (kurir.getJenisKelamin() == "") {
+                return new ResponseEntity<>(new CustomErrorType("jenis kelamin not found."),
+                        HttpStatus.NOT_FOUND);
+            } else if (kurirService.isKurirExist(kurir)) {
+                logger.error("Unable to create, kurir already exist", kurir.getNamaKurir());
+                return new ResponseEntity<>(new CustomErrorType("Unable to create, kurir already" + kurir.getNamaKurir()), HttpStatus.CONFLICT);
+            } else {
+                kurirService.saveKurir(kurir);
+                return new ResponseEntity<>("Data Berhasil Di Simpan", HttpStatus.OK);
+            }
+        }catch (Exception e){
+            System.out.println(e);
+            return new ResponseEntity<>("Blank", HttpStatus.NOT_FOUND);
         }
     }
     //delete daftar harga by id

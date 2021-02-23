@@ -87,11 +87,8 @@ public class JadwalController {
         }else if(jadwal.getKg() == 0){
             return new ResponseEntity<>(new CustomErrorType("kg not null"),
                     HttpStatus.NOT_FOUND);
-        }else if(jadwal.getHarga() == 0){
+        }else if(jadwal.getHarga() == 0) {
             return new ResponseEntity<>(new CustomErrorType("harga not null"),
-                    HttpStatus.NOT_FOUND);
-        }else if(jadwal.getTotal() == 0){
-            return new ResponseEntity<>(new CustomErrorType("total not null"),
                     HttpStatus.NOT_FOUND);
         }else if(jadwalService.isJadwalExist(jadwal)) {
             logger.error("Unable to create, jadwal already exist", jadwal.getIdPaket());
@@ -147,9 +144,6 @@ public class JadwalController {
         }else if(jadwal.getHarga() == 0){
             return new ResponseEntity<>(new CustomErrorType("harga not null"),
                     HttpStatus.NOT_FOUND);
-        }else if(jadwal.getTotal() == 0){
-            return new ResponseEntity<>(new CustomErrorType("total not null"),
-                    HttpStatus.NOT_FOUND);
         }else {
             currentJadwal.setIdKurir(jadwal.getIdKurir());
             currentJadwal.setIdJadwal(jadwal.getIdJadwal());
@@ -157,7 +151,6 @@ public class JadwalController {
             currentJadwal.setQty(jadwal.getQty());
             currentJadwal.setKg(jadwal.getKg());
             currentJadwal.setHarga(jadwal.getHarga());
-            currentJadwal.setTotal(jadwal.getTotal());
             jadwalService.updateJadwal(currentJadwal);
             return new ResponseEntity<>(currentJadwal, HttpStatus.OK);
         }

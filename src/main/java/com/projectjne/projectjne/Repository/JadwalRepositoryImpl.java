@@ -90,14 +90,20 @@ public class JadwalRepositoryImpl implements JadwalRepository {
         String tgl = f.format(date);
         UUID uuid = UUID.randomUUID();
         String randomUUIDString = uuid.toString();
+        int total = (int) ((jadwal.getQty()*jadwal.getKg()*jadwal.getHarga())+(jadwal.getQty()*jadwal.getKg()*jadwal.getHarga()*0.10));
+        System.out.println(total);
         jdbcTemplate.update("INSERT INTO tbl_jadwal_header (idJadwal,idKurir,idKendaraan,idPaket,qty,kg,harga,total) VALUES (?,?,?,?,?,?,?,?)",
-                tgl + "-" + randomUUIDString, jadwal.getIdKurir(), jadwal.getIdKendaraan(), jadwal.getIdPaket(), jadwal.getQty(), jadwal.getKg(), jadwal.getHarga(), jadwal.getTotal());
+                tgl + "-" + randomUUIDString, jadwal.getIdKurir(), jadwal.getIdKendaraan(), jadwal.getIdPaket(), jadwal.getQty(), jadwal.getKg(), jadwal.getHarga(), total);
+        jdbcTemplate.update("UPDATE tbl_daftar_harga set status=1 where idDaftarHarga=?",jadwal.getIdPaket());
     }
+
 
     // update new customer
     public void updateJadwal(Jadwal jadwal) {
+        int total = (int) ((jadwal.getQty()*jadwal.getKg()*jadwal.getHarga())+(jadwal.getQty()*jadwal.getKg()*jadwal.getHarga()*0.10));
+        System.out.println(jadwal.getIdJadwal());
         jdbcTemplate.update("UPDATE tbl_jadwal_header SET idKurir=?,idKendaraan=?,idPaket=?,qty=?,kg=?,harga=?,total=? Where idJadwal=?",
-                jadwal.getIdKurir(), jadwal.getIdKendaraan(), jadwal.getIdPaket(), jadwal.getQty(), jadwal.getKg(), jadwal.getHarga(), jadwal.getTotal(), jadwal.getIdJadwal());
+                jadwal.getIdKurir(), jadwal.getIdKendaraan(), jadwal.getIdPaket(), 10000, jadwal.getKg(), jadwal.getHarga(), total, jadwal.getIdJadwal());
     }
 
     public Jadwal findById(String idJadwal) {
