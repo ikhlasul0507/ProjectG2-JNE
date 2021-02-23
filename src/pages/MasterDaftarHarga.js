@@ -84,9 +84,6 @@ class MasterDaftarHarga extends Component {
                     isLoaded: true
                 })
             })
-            .catch(() => {
-                alert("Gagal Mengambil Data !")
-            })
 
     }
     hapusApi = (idDaftarHarga) => {
@@ -242,7 +239,7 @@ class MasterDaftarHarga extends Component {
                                                 <td className="idJadwal">{Item.idDaftarHarga}</td>
                                                 <td>{Item.namaPaket}</td>
                                                 <td>{Item.hargaPaket}</td>
-                                                <td>{Item.status}</td>
+                                                <td>{Item.status ===0 ? <span class="badge bg-danger text-dark">Pending</span> : <span className="badge bg-warning text-dark">On Progress</span>}</td>
                                                 <td>
                                                     <button className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => this.editApi(Item.idDaftarHarga)}>Edit</button>
                                                     <button className="btn btn-danger ml-3" onClick={() => { if (window.confirm('Yakin Mau Delete ?')) { this.hapusApi(Item.idDaftarHarga) } }} >Hapus</button>

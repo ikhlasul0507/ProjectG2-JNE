@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import DivSingleClass from "../componens/div/divSingleClass"
-import DivModal from "../componens/div/divModal"
 import Label from "../componens/label"
 import Input from "../componens/input"
 import H5 from "../componens/h5"
@@ -82,7 +81,7 @@ class Jadwal extends Component {
         } else {
             if (nilai === "") {
                 this.ambilApi()
-
+                
             } else if (this.valueSelect === "nama") {
                 axios.get(this.state.url + "/nama/" + nilai)
                     .then((res) => {
@@ -97,7 +96,7 @@ class Jadwal extends Component {
                     })
                     .catch((e) => {
                         console.log(e);
-                        alert("ID  Tidak Ada!!");
+                        alert("Nama  Tidak Ada!!");
                     });
             } else if (this.valueSelect === "id") {
                 axios.get(this.state.url + nilai)
@@ -352,9 +351,7 @@ class Jadwal extends Component {
                                                 <Td>Rp.{Item.harga},-</Td>
                                                 <Td>Rp.{Item.total},-</Td>
                                                 <Td>
-                                                    <Button type="button" className="btn btn-warning">
-                                                        Sedang Pengiriman<span className="badge bg-primary">{Item.daftarHargaList.status}</span>
-                                                    </Button>
+                                                    {Item.daftarHargaList.status ===0 ? <span class="badge bg-danger text-dark">Pending</span> : <span className="badge bg-warning text-dark">On Progress</span>}
                                                 </Td>
                                                 <Td>
                                                     <button className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => this.editApi(Item.idJadwal)}>Edit</button>
@@ -431,11 +428,11 @@ class Jadwal extends Component {
                                     </DivSingleClass>
                                     <DivSingleClass className="mb-3">
                                         <Label className="form-label">Harga</Label>
-                                        <Input type="number" disabled className="form-control" name="harga" value={harga} onChange={this.setValue} placeholder="Harga" />
+                                        <input type="number" disabled className="form-control" name="harga" value={harga} onChange={this.setValue} placeholder="Harga" />
                                     </DivSingleClass>
                                     <DivSingleClass className="mb-3">
                                         <Label className="form-label">Total</Label>
-                                        <Input type="number" disabled className="form-control" name="total" value={total} onChange={this.setValue} placeholder="Total" />
+                                        <input type="number" disabled className="form-control" name="total" value={total} onChange={this.setValue} placeholder="Total" />
                                     </DivSingleClass>
                                 </DivSingleClass>
                                 <DivSingleClass className="modal-footer">

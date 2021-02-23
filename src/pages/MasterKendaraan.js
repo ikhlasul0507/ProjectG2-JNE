@@ -82,9 +82,6 @@ class MasterKendaraan extends Component {
                     isLoaded: true
                 })
             })
-            .catch(() => {
-                alert("Gagal Mengambil Data !")
-            })
 
     }
     hapusApi = (idKendaraan) => {

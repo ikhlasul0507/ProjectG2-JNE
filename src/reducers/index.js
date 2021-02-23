@@ -1,8 +1,8 @@
-import {createStore, combineReducers} from 'redux'
+import { combineReducers } from 'redux'
 import AuthReducer from "./auth"
-let store = createStore(combineReducers({
+const allReducer = combineReducers({
     AReducer: AuthReducer,
     
-}))
+});
 
-export default store
+export default allReducer;

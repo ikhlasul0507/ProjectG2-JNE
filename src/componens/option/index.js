@@ -7,7 +7,7 @@ class Option extends Component {
     }
     render() { 
         return ( 
-            <option key={this.props.key} value={this.props.value} defaultValue={this.props.defaultValue}>{this.props.children}</option>
+            <option value={this.props.value} defaultValue={this.props.defaultValue}>{this.props.children}</option>
          );
     }
 }

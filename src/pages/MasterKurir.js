@@ -89,9 +89,6 @@ class MasterKurir extends Component {
                     isLoaded: true
                 })
             })
-            .catch(() => {
-                alert("Gagal Mengambil Data !")
-            })
 
     }
     ambilApi = () => {
@@ -102,9 +99,6 @@ class MasterKurir extends Component {
                     kurir: res.data,
                     isLoaded: true
                 })
-            })
-            .catch(() => {
-                alert("Gagal Mengambil Data !")
             })
 
     }

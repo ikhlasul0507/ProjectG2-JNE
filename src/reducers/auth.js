@@ -1,11 +1,11 @@
 let defaultState = {
     isLogin: false,
     userLogin: {
-        idUser:"",
-        username : "",
-        email : "",
-        password : "",
-        email : ""
+        // idUser:"",
+        // username : "",
+        // email : "",
+        // password : "",
+        // email : ""
     }
 }
 
@@ -18,12 +18,13 @@ const authReducer = (state = defaultState, action) => {
             // console.log(action.payload.username)
             return {
                 isLogin: true,
-                userLogin: {
-                    idUser : action.payload.userData.idUser,
-                    username: action.payload.userData.username,
-                    email: action.payload.userData.email,
-                    password: action.payload.userData.password
-                }
+                // userLogin: {
+                //     idUser : action.payload.userData.idUser,
+                //     username: action.payload.userData.username,
+                //     email: action.payload.userData.email,
+                //     password: action.payload.userData.password
+                // }
+                userLogin: action.userData
             }
 
         case "LOGOUT_SUCCESS":

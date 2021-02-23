@@ -99,9 +99,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    submitLogin: (data) => dispatch({ type: "LOGIN_SUCCESS", payload: data }),
-    keluar: () => dispatch({ type: "LOGOUT_SUCCESS" }),
-    updateUser: payload => dispatch({ type: "SET_DATA", payload }),
+    submitLogin: (data) => dispatch({ type: "LOGIN_SUCCESS", userData: data }),
+    keluar: () => dispatch({ type: "LOGOUT_SUCCESS" })
   }
 }
 
